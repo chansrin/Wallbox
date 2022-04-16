@@ -1,0 +1,31 @@
+import os
+from pathlib import Path
+import stat
+
+#set flag true only whn finding the file with appropriate consitions
+found = False
+
+# The Path() object will convert forward slashes into the correct kind of slash for the current operating system.
+path_of_the_directory = Path("/Users/chandrasekar/Documents")
+object = os.scandir(path_of_the_directory)
+# S_IRWXU = rwx for owner
+# S_IXGRP = x for group
+# S_IXOTH = x for other
+admin_perm = oct(stat.S_IRWXU  | stat.S_IXGRP | stat.S_IXOTH)
+#print("Files and Directories in '% s':" % path_of_the_directory)
+for n in object :
+    if n.is_file():
+        #print(n.name)
+        if os.stat("/Users/chandrasekar/Documents/" + n.name)[stat.ST_SIZE] <= 14*(1024 * 1024):
+            st = os.stat("/Users/chandrasekar/Documents/" + n.name)
+            perm = oct(st[stat.ST_MODE] & 0o000777)
+            if admin_perm is perm:
+                print (n.name)
+                found = True
+                break
+if not found:
+    print ("There is no file that matches all the condition")
+
+object.close()
+
+
