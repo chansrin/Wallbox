@@ -1,0 +1,29 @@
+# importing numpy and pytest
+import numpy as np
+import pytest
+
+'''
+This function accepts given 2 vectors of integers and finds and print
+ the first repeated number. if match not found it will 
+'''
+def firstRepeatedNumbers(v1,v2):
+  # Print all items from list_1 that equals from the item at the same index in list_2
+ assert len(v1) != 0, "the vector v1 should not be empty"
+ assert len(v2) != 0, "the vector v2 should not be empty"
+ listOfNums = [x for x, y in zip(v1, v2) if x == y]
+ if not listOfNums:
+     print("There is no first repeated number at the same indexes of two given vectors")
+ else:
+     print("The first repeated number in the given list is",listOfNums[0])
+  
+# creating a 1-D list
+list1 = [0,22,5,9]
+list2 = [-9,22,8,4,0,1,9,19,-1]
+
+# creating a vector1
+vector1 = np.array(list1)
+
+# creating a vector2
+vector2 = np.array(list2)
+
+firstRepeatedNumbers (vector1, vector2)
